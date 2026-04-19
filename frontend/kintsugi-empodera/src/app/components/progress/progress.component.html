@@ -1,0 +1,29 @@
+<div class="progress-container">
+  <h1>Progreso & Logros</h1>
+  
+  <div class="stats-overview" *ngIf="stats">
+    <div class="stat-card">
+      <h3>{{ stats.overall_progress | number:'1.0-0' }}%</h3>
+      <p>Progreso General</p>
+    </div>
+    <div class="stat-card">
+      <h3>{{ stats.completed_courses }}</h3>
+      <p>Cursos Completados</p>
+    </div>
+    <div class="stat-card">
+      <h3>{{ stats.total_achievements }}</h3>
+      <p>Logros Obtenidos</p>
+    </div>
+  </div>
+
+  <div class="courses-progress">
+    <h2>Mis Cursos</h2>
+    <div class="course-item" *ngFor="let cp of courses">
+      <h3>{{ cp.course.title }}</h3>
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="cp.progress_percentage"></div>
+      </div>
+      <p>{{ cp.completed_modules }} de {{ cp.total_modules }} módulos completados</p>
+    </div>
+  </div>
+</div>

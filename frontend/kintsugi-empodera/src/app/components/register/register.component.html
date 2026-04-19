@@ -1,0 +1,90 @@
+<div class="register-container">
+  <div class="register-card">
+    <div class="logo">
+      <img src="assets/logo.png" alt="Kintsugi Empodera" />
+      <h1>KINTSUGI</h1>
+      <p class="tagline">EMPODERA</p>
+    </div>
+
+    <h2>Crear Cuenta</h2>
+
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+      <div class="form-group">
+        <label for="full_name">Nombre Completo</label>
+        <input
+          type="text"
+          id="full_name"
+          name="full_name"
+          [(ngModel)]="user.full_name"
+          placeholder="Tu nombre completo"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="username">Nombre de Usuario <span class="required">*</span></label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          [(ngModel)]="user.username"
+          required
+          placeholder="usuario123"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email <span class="required">*</span></label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="user.email"
+          required
+          placeholder="tu@email.com"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña <span class="required">*</span></label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="user.password"
+          required
+          placeholder="••••••••"
+          minlength="6"
+        />
+        <small class="hint">Mínimo 6 caracteres</small>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirmar Contraseña <span class="required">*</span></label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          required
+          placeholder="••••••••"
+        />
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="success-message" *ngIf="successMessage">
+        {{ successMessage }}
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="isLoading">
+        {{ isLoading ? 'Registrando...' : 'Registrarse' }}
+      </button>
+    </form>
+
+    <div class="login-link">
+      <p>¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión aquí</a></p>
+    </div>
+  </div>
+</div>

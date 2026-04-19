@@ -1,0 +1,24 @@
+<div class="course-detail-container" *ngIf="course">
+  <header class="course-header">
+    <a routerLink="/courses" class="back-button">← Volver</a>
+    <h1>{{ course.title }}</h1>
+    <p class="course-description">{{ course.description }}</p>
+  </header>
+
+  <div class="modules-list" *ngIf="!isLoading">
+    <h2>Módulos del curso</h2>
+    <div class="module-card" *ngFor="let module of modules">
+      <div class="module-header">
+        <h3>{{ module.order }}. {{ module.title }}</h3>
+        <span class="module-status" [class.locked]="module.is_locked">
+          {{ module.is_locked ? '🔒 Bloqueado' : '✓ Disponible' }}
+        </span>
+      </div>
+      <p class="module-description">{{ module.description }}</p>
+    </div>
+  </div>
+
+  <div class="loading" *ngIf="isLoading">
+    <div class="spinner"></div>
+  </div>
+</div>

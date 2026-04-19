@@ -1,0 +1,61 @@
+<div class="onboarding-container">
+  <div class="onboarding-content">
+    <!-- Logo -->
+    <div class="logo-section">
+      <div class="logo-icon">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="45" fill="none" stroke="url(#gradient)" stroke-width="3"/>
+          <path d="M 30 50 Q 50 30, 70 50 T 70 70" fill="none" stroke="url(#gradient)" stroke-width="2"/>
+          <defs>
+            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#8B5CF6;stop-opacity:1" />
+              <stop offset="50%" style="stop-color:#EC4899;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#F59E0B;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <h1 class="logo-text">KINTSUGI</h1>
+      <p class="logo-subtitle">EMPODERA</p>
+    </div>
+
+    <!-- Slide Content -->
+    <div class="slide-content">
+      <div class="slide-icon">{{ slides[currentSlide].icon }}</div>
+      <h2 class="slide-title">{{ slides[currentSlide].title }}</h2>
+      <p class="slide-subtitle">{{ slides[currentSlide].subtitle }}</p>
+      <p class="slide-description">{{ slides[currentSlide].description }}</p>
+    </div>
+
+    <!-- Dots Indicator -->
+    <div class="dots-indicator">
+      <span 
+        *ngFor="let slide of slides; let i = index" 
+        class="dot" 
+        [class.active]="i === currentSlide"
+        (click)="goToSlide(i)">
+      </span>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="navigation-buttons">
+      <button 
+        *ngIf="currentSlide > 0" 
+        (click)="previousSlide()" 
+        class="btn-secondary">
+        Anterior
+      </button>
+      <button 
+        *ngIf="currentSlide < slides.length - 1" 
+        (click)="skip()" 
+        class="btn-text">
+        Saltar
+      </button>
+      <button 
+        (click)="nextSlide()" 
+        class="btn-primary">
+        {{ currentSlide === slides.length - 1 ? 'Comenzar' : 'Siguiente' }}
+      </button>
+    </div>
+  </div>
+</div>

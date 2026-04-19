@@ -1,0 +1,118 @@
+<div class="courses-container">
+  <!-- Header -->
+  <header class="header">
+    <h1>Mis cursos</h1>
+  </header>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button 
+      class="tab" 
+      [class.active]="selectedTab === 'all'"
+      (click)="selectTab('all')">
+      Todos
+    </button>
+    <button 
+      class="tab" 
+      [class.active]="selectedTab === 'in-progress'"
+      (click)="selectTab('in-progress')">
+      En progreso
+    </button>
+    <button 
+      class="tab" 
+      [class.active]="selectedTab === 'completed'"
+      (click)="selectTab('completed')">
+      Completados
+    </button>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <!-- Loading State -->
+    <div class="loading" *ngIf="isLoading">
+      <span>Cargando cursos...</span>
+    </div>
+
+    <!-- Courses Grid -->
+    <div class="courses-grid" *ngIf="!isLoading && filteredCourses.length > 0">
+      <div 
+        class="course-card" 
+        *ngFor="let course of filteredCourses; trackBy: trackByCourseId"
+        [routerLink]="['/course', course.id]">
+        
+        <div class="course-icon" [style.background-color]="course.color || '#E8B4F9'">
+          {{ course.icon || '📚' }}
+        </div>
+
+        <div class="course-info">
+          <h3>{{ course.title }}</h3>
+          <p class="course-description">{{ course.description }}</p>
+          
+          <div class="course-meta">
+            <span class="duration" *ngIf="course.duration_hours">
+              ⏱️ {{ course.duration_hours }}h
+            </span>
+            <span class="difficulty" *ngIf="course.difficulty_level">
+              {{ course.difficulty_level }}
+            </span>
+          </div>
+
+          <!-- Progress Bar (if enrolled) -->
+          <div class="progress-section" *ngIf="isEnrolled(course.id)">
+            <div class="progress-bar">
+              <div 
+                class="progress-fill" 
+                [style.width.%]="getCourseProgress(course.id)">
+              </div>
+            </div>
+            <span class="progress-text">
+              {{ getCourseProgress(course.id) | number:'1.0-0' }}% completado
+            </span>
+          </div>
+
+          <!-- Enroll Button (if not enrolled) -->
+          <div class="enroll-section" *ngIf="!isEnrolled(course.id)">
+            <span class="enroll-badge">Disponible</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="!isLoading && filteredCourses.length === 0">
+      <div class="empty-icon">📚</div>
+      <h3>No hay cursos disponibles</h3>
+      <p *ngIf="selectedTab === 'in-progress'">
+        No tienes cursos en progreso en este momento
+      </p>
+      <p *ngIf="selectedTab === 'completed'">
+        Aún no has completado ningún curso
+      </p>
+      <p *ngIf="selectedTab === 'all'">
+        No hay cursos disponibles en este momento
+      </p>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <a routerLink="/home" class="nav-item">
+      <span class="icon">🏠</span>
+      <span class="label">Inicio</span>
+    </a>
+    <a routerLink="/courses" routerLinkActive="active" class="nav-item">
+      <span class="icon">📚</span>
+      <span class="label">Cursos</span>
+    </a>
+    <a routerLink="/community" class="nav-item">
+      <span class="icon">👥</span>
+      <span class="label">Comunidad</span>
+    </a>
+    <a routerLink="/profile" class="nav-item">
+      <span class="icon">👤</span>
+      <span class="label">Perfil</span>
+    </a>
+  </nav>
+</div>
+
+<!-- Made with Bob -->
